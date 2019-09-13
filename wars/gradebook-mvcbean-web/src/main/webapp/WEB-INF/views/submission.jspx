@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:aui="http://liferay.com/tld/aui"
+		  xmlns:c="http://java.sun.com/jsp/jstl/core"
+		  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+		  xmlns:jsp="http://java.sun.com/JSP/Page"
+		  xmlns:liferay-ui="http://liferay.com/tld/ui"
+		  xmlns:portlet="http://xmlns.jcp.org/portlet_3_0"
+		  version="2.1">
+
+	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
+	<fmt:setBundle basename="content.Language" var="i18n" />
+	<c:set value="${submissionSearchContainerViewState}" var="searchContainerViewState" />
+
+	<div class="container-fluid-1280">
+
+		<c:choose>
+			<c:when test="${param['viewId'] == 'add'}">
+				<c:set value="!${currentUser.mayAddSubmission}" var="readOnly" />
+				<h1><liferay-ui:message key="action.ADD_SUBMISSION" /></h1>
+			</c:when>
+			<c:when test="${param['viewId'] == 'edit'}">
+				<c:set value="!${currentUser.mayEditSubmission(submission.submissionId)}" var="readOnly" />
+				<h1><liferay-ui:message key="action.EDIT_SUBMISSION" /></h1>
+			</c:when>
+			<c:when test="${param['viewId'] == 'view'}">
+				<c:set value="true" var="readOnly" />
+				<h1><liferay-ui:message key="action.VIEW_SUBMISSION" /></h1>
+			</c:when>
+		</c:choose>
+
+		<c:if test="${!readOnly}">
+			<portlet:actionURL name="submitSubmission" var="formActionURL">
+				<portlet:param name="assignmentId" type="render" value="${submission.assignmentId}" />
+				<portlet:param name="javax.portlet.render" type="render" value="submission" />
+				<!-- SearchContainer view state -->
+				<portlet:param name="cur" type="render" value="${searchContainerViewState.cur}" />
+				<portlet:param name="delta" type="render" value="${searchContainerViewState.delta}" />
+				<portlet:param name="displayStyle" type="render" value="${searchContainerViewState.displayStyle}" />
+				<portlet:param name="orderByCol" type="render" value="${param.orderByCol}" />
+				<portlet:param name="orderByType" type="render" value="${param.orderByType}" />
+				<portlet:param name="resetCur" type="render" value="${searchContainerViewState.resetCur}" />
+			</portlet:actionURL>
+		</c:if>
+
+		<aui:form action="${formActionURL}" name="submissionForm" onSubmit="event.preventDefault();">
+
+			<c:if test="${!readOnly}">
+				<input name="${mvc.csrf.name}" value="${mvc.csrf.token}" type="hidden"/>
+			</c:if>
+
+			<aui:input name="submissionId" type="hidden" value="${submission.submissionId}" />
+
+			<aui:fieldset-group markupView="lexicon">
+
+				<aui:fieldset>
+
+					<aui:field-wrapper cssClass="submission-text entry-content form-group" disabled="${readOnly}"
+							label="submission-text" required="true">
+						<c:choose>
+							<c:when test="${readOnly}">
+								<!-- Value is safe to display without encoding since it is sanitized before being saved -->
+								<p>${submission.submissionText}</p>
+							</c:when>
+							<c:otherwise>
+								<liferay-ui:input-editor contents="${submission.submissionText}"
+										editorName="alloyeditor" name="submissionTextEditor" placeholder="submission-text">
+									<aui:validator name="required" />
+								</liferay-ui:input-editor>
+								<aui:input name="submissionText" type="hidden" />
+								<c:if test="${fields.hasErrors('submissionText')}">
+									<span class="portlet-msg-error">${fields.error('submissionText')}</span>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</aui:field-wrapper>
+
+					<c:choose>
+						<c:when test="${readOnly}">
+							<aui:input disabled="true" name="grade" value="${mvc.encoders.html(submission.grade)}" />
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${param['viewId'] == 'edit'}">
+									<c:choose>
+										<c:when test="${currentUser.mayGradeSubmission(submission.submissionId)}">
+											<aui:input name="grade" value="${mvc.encoders.html(submission.grade)}" />
+										</c:when>
+										<c:otherwise>
+											<aui:input disabled="true" name="grade" value="${mvc.encoders.html(submission.grade)}" />
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:when test="${param['viewId'] == 'view'}">
+									<aui:input disabled="true" name="grade" value="${mvc.encoders.html(submission.grade)}" />
+								</c:when>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+
+					<aui:input disabled="${readOnly}" name="submitDate" type="date"
+							value="${mvc.encoders.html(converter.convert('submission.submitDate'))}">
+						<aui:validator name="required" />
+					</aui:input>
+					<c:if test="${fields.hasErrors('submitDate')}">
+						<span class="portlet-msg-error">${fields.error('submitDate')}</span>
+					</c:if>
+
+				</aui:fieldset>
+
+			</aui:fieldset-group>
+
+			<aui:button-row>
+				<c:if test="${!readOnly}">
+					<aui:button cssClass="btn btn-primary" type="submit" />
+				</c:if>
+				<portlet:renderURL var="cancelURL">
+					<portlet:param name="assignmentId" value="${submission.assignmentId}" />
+					<portlet:param name="javax.portlet.render" value="submission" />
+					<portlet:param name="viewId" value="master" />
+					<!-- SearchContainer view state -->
+					<portlet:param name="cur" value="${searchContainerViewState.cur}" />
+					<portlet:param name="delta" value="${searchContainerViewState.delta}" />
+					<portlet:param name="displayStyle" value="${searchContainerViewState.displayStyle}" />
+					<portlet:param name="orderByCol" value="${param.orderByCol}"/>
+					<portlet:param name="orderByType" value="${param.orderByType}"/>
+					<portlet:param name="resetCur" value="${searchContainerViewState.resetCur}" />
+				</portlet:renderURL>
+				<aui:button cssClass="btn btn-secondary" onClick="${cancelURL}" type="cancel" />
+			</aui:button-row>
+		</aui:form>
+	</div>
+
+	<c:if test="${!readOnly}">
+		<aui:script>
+		/*<![CDATA[*/
+			/**
+			 * Handle form submit. Set editor value to the hidden field
+			 * which transports the value to the backend.
+			*/
+			AUI().ready(function() {
+
+				$('#${namespace}submissionForm').on('submit', function() {
+
+					var editorValue = window['${namespace}submissionTextEditor'].getHTML();
+
+					if (editorValue.length == 0) {
+						return false;
+					}
+
+					window['${namespace}submissionText'].value = editorValue;
+
+					submitForm(document.${namespace}submissionForm);
+				});
+			});
+		/*]]>*/
+		</aui:script>
+	</c:if>
+
+</jsp:root>

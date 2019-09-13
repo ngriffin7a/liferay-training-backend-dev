@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:aui="http://liferay.com/tld/aui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:clay="http://liferay.com/tld/clay"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:liferay-frontend="http://liferay.com/tld/frontend"
+	xmlns:liferay-ui="http://liferay.com/tld/ui"
+	xmlns:portlet="http://xmlns.jcp.org/portlet_3_0" version="2.1">
+
+	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
+	<portlet:defineObjects/>
+	<c:set value="${submissionSearchContainerViewState}" var="searchContainerViewState" />
+
+	<clay:management-toolbar displayContext="${assignmentClayToolbarViewState}" itemsTotal="${assignmentCount}"
+			searchContainerId="assignments" />
+
+	<liferay-ui:search-container emptyResultsMessage="no-assignments" id="assignments" total="${assignmentCount}">
+
+		<liferay-ui:search-container-results results="${assignments}" />
+
+		<liferay-ui:search-container-row className="com.liferay.training.gradebook.model.Assignment"
+				modelVar="assignment">
+
+			<c:if test="${currentUser.mayViewAssignment(assignment.assignmentId)}">
+				<portlet:renderURL var="viewAssignmentURL">
+					<portlet:param name="assignmentId" value="${assignment.assignmentId}" />
+					<portlet:param name="javax.portlet.render" value="assignment" />
+					<portlet:param name="viewId" value="view" />
+					<!-- SearchContainer view state -->
+					<portlet:param name="cur" value="${searchContainerViewState.cur}" />
+					<portlet:param name="delta" value="${searchContainerViewState.delta}" />
+					<portlet:param name="displayStyle" value="${searchContainerViewState.displayStyle}" />
+					<portlet:param name="orderByCol" value="${searchContainerViewState.orderByCol}" />
+					<portlet:param name="orderByType" value="${searchContainerViewState.orderByType}" />
+					<portlet:param name="resetCur" value="${searchContainerViewState.resetCur}" />
+				</portlet:renderURL>
+			</c:if>
+
+			<c:choose>
+
+				<!-- List display style -->
+				<c:when test='${searchContainerViewState.displayStyle == "descriptive"}'>
+					<liferay-ui:search-container-column-user showDetails="false" userId="${assignment.userId}" />
+					<liferay-ui:search-container-column-text colspan="2">
+						<h5 class="text-default">
+							<liferay-ui:message arguments="${assignment.modifiedDateInfo}" key="x-modified-x-ago" />
+						</h5>
+						<h4>
+							<aui:a href="${viewAssignmentURL}">${assignment.title}</aui:a>
+						</h4>
+						<h5 class="text-default">
+							<aui:workflow-status markupView="lexicon" showIcon="true" showLabel="false"
+									status="${assignment.status}" />
+						</h5>
+					</liferay-ui:search-container-column-text>
+				</c:when>
+
+				<!-- Cards display style -->
+				<c:when test='${searchContainerViewState.displayStyle == "icon"}'>
+					<liferay-ui:search-container-column-text>
+						<liferay-frontend:icon-vertical-card actionJsp="/WEB-INF/views/assignmentActions.jspx"
+								actionJspServletContext="${application}" icon="cards2" resultRow="${row}"
+								title="${assignment.title}" url="${viewAssignmentURL}">
+							<liferay-frontend:vertical-card-sticker-bottom>
+								<liferay-ui:user-portrait cssClass="sticker sticker-bottom"
+									userId="${assignment.userId}" />
+							</liferay-frontend:vertical-card-sticker-bottom>
+							<liferay-frontend:vertical-card-footer>
+								<aui:workflow-status markupView="lexicon" showIcon="false" showLabel="false"
+									status="${assignment.status}" />
+								<div class="truncate-text">${assignment.strippedDescription}</div>
+							</liferay-frontend:vertical-card-footer>
+						</liferay-frontend:icon-vertical-card>
+					</liferay-ui:search-container-column-text>
+				</c:when>
+
+				<!-- Table display style -->
+				<c:otherwise>
+					<liferay-ui:search-container-column-text href="${viewAssignmentURL}" name="title"
+						value="${assignment.title}" />
+					<liferay-ui:search-container-column-user name="author" userId="${assignment.userId}" />
+					<liferay-ui:search-container-column-date name="create-date" property="createDate" />
+					<liferay-ui:search-container-column-status name="status" />
+					<liferay-ui:search-container-column-jsp path="/WEB-INF/views/assignmentActions.jspx" />
+				</c:otherwise>
+			</c:choose>
+
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator displayStyle="${searchContainerViewState.displayStyle}" markupView="lexicon" />
+
+	</liferay-ui:search-container>
+
+</jsp:root>

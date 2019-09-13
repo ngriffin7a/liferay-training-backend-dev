@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:liferay-ui="http://liferay.com/tld/ui" version="2.1">
+	<h1><liferay-ui:message key="title" /></h1>
+	<p>${assignment.title}</p>
+	<h1><liferay-ui:message key="description" /></h1>
+	<p>${assignment.description}</p>
+</jsp:root>
