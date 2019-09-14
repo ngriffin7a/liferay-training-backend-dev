@@ -2,7 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
 	xmlns:liferay-ui="http://liferay.com/tld/ui" version="2.1">
 	<h1><liferay-ui:message key="title" /></h1>
-	<p>${assignment.title}</p>
+	<p>${assignmentTitle}</p>
 	<h1><liferay-ui:message key="description" /></h1>
-	<p>${assignment.description}</p>
+	<p>${assignmentDescription}</p>
 </jsp:root>

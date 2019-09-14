@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.training.gradebook.model.Assignment;
 import com.liferay.training.gradebook.service.permission.AssignmentPermissionChecker;
 import com.liferay.training.gradebook.web.controller.GradebookPortlet;
-import com.liferay.training.gradebook.web.model.AssignmentDTO;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -211,21 +210,17 @@ public class AssignmentAssetRenderer extends BaseJSPAssetRenderer<Assignment> {
 	private void _prepareModel(HttpServletRequest request)
 		throws IllegalAccessException, InvocationTargetException {
 
-		AssignmentDTO assignmentDTO = new AssignmentDTO();
-
 		int abstractLength = GetterUtil.getInteger(
 			request.getAttribute(WebKeys.ASSET_ENTRY_ABSTRACT_LENGTH),
 			AssetHelper.ASSET_ENTRY_ABSTRACT_LENGTH);
 
-		assignmentDTO.setDescription(
+		request.setAttribute("assignmentDescription",
 			HtmlUtil.stripHtml(
 				StringUtil.shorten(
 					_assignment.getDescription(), abstractLength)));
 
-		assignmentDTO.setTitle(
+		request.setAttribute("assignmentTitle",
 			HtmlUtil.stripHtml(_assignment.getTitle(request.getLocale())));
-
-		request.setAttribute("assignment", assignmentDTO);
 	}
 
 	private Assignment _assignment;
