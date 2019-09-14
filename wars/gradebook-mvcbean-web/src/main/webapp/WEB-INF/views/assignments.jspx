@@ -9,7 +9,7 @@
 
 	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
 	<portlet:defineObjects/>
-	<c:set value="${submissionSearchContainerViewState}" var="searchContainerViewState" />
+	<c:set value="${assignmentSearchContainerViewState}" var="searchContainerViewState" />
 
 	<clay:management-toolbar displayContext="${assignmentClayToolbarViewState}" itemsTotal="${assignmentCount}"
 			searchContainerId="assignments" />
@@ -46,7 +46,7 @@
 							<liferay-ui:message arguments="${assignment.modifiedDateInfo}" key="x-modified-x-ago" />
 						</h5>
 						<h4>
-							<aui:a href="${viewAssignmentURL}">${assignment.title}</aui:a>
+							<aui:a href="${viewAssignmentURL}">${mvc.encoders.html(assignment.title)}</aui:a>
 						</h4>
 						<h5 class="text-default">
 							<aui:workflow-status markupView="lexicon" showIcon="true" showLabel="false"
