@@ -4,6 +4,7 @@
 .project
 .settings
 target
+bundles
 *.sh
 *.iml
 *.ipr
