@@ -84,16 +84,17 @@ public class ClayToolbarViewStateProducer {
 		ResourceBundle resourceBundle = _portletConfig.getResourceBundle(
 			_portletRequest.getLocale());
 
+		boolean assignment = renderName.equals("assignment");
+
 		ClayToolbarViewState clayToolbarViewState =
 			_clayToolbarViewStateFactory.create(
 				LanguageUtil.get(
 					resourceBundle, "action.ADD_" + renderName.toUpperCase()),
-				"list",
-				renderName.equals("assignment") ? "title" : "createDate", "asc",
+				"list", renderName.equals("assignment") ? "title" : "createDate", "asc",
 				renderRequest, renderResponse,
-				currentUser.isMayAddAssignment());
+				currentUser.isMayAddAssignment(), assignment, assignment, true);
 
-		return new MVCBeanClayToolbarViewState(
+		return new CustomClayToolbarViewState(
 			clayToolbarViewState, renderName, resourceBundle);
 	}
 
@@ -111,10 +112,10 @@ public class ClayToolbarViewStateProducer {
 	@Reference
 	private SearchContainerURLFactory _searchContainerURLFactory;
 
-	private class MVCBeanClayToolbarViewState
+	private class CustomClayToolbarViewState
 		extends ClayToolbarViewStateWrapper {
 
-		public MVCBeanClayToolbarViewState(
+		public CustomClayToolbarViewState(
 			ClayToolbarViewState clayToolbarViewState, String renderName,
 			ResourceBundle resourceBundle) {
 
@@ -145,6 +146,9 @@ public class ClayToolbarViewStateProducer {
 			_renderName = renderName;
 			_resourceBundle = resourceBundle;
 
+			_addURLRenderParameters(
+				clayToolbarViewState.getDisplayStyleURL(), assignmentId,
+				renderName);
 			_addURLRenderParameters(
 				clayToolbarViewState.getSortingURLCurrent(), assignmentId,
 				renderName);

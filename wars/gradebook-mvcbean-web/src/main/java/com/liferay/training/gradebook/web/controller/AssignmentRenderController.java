@@ -26,6 +26,7 @@ import com.liferay.training.gradebook.model.Assignment;
 import com.liferay.training.gradebook.service.AssignmentService;
 import com.liferay.training.gradebook.web.el.CurrentUser;
 import com.liferay.training.gradebook.web.model.AssignmentDTO;
+import com.liferay.training.gradebook.web.view.AssignmentClayToolbarViewState;
 import com.liferay.training.gradebook.web.view.AssignmentEntry;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ import javax.portlet.annotations.RenderMethod;
 import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 
+import com.liferay.training.gradebook.web.view.ClayToolbarViewStateProducer;
 import org.apache.commons.beanutils.BeanUtils;
 
 import org.osgi.service.cdi.annotations.Reference;
@@ -134,11 +136,9 @@ public class AssignmentRenderController extends MasterDetailRenderController {
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long scopeGroupId = themeDisplay.getScopeGroupId();
-
 		List<Assignment> assignmentsByKeywords =
 			_assignmentService.getAssignmentsByKeywords(
-				scopeGroupId, _searchContainerViewState.getKeywords(),
+				themeDisplay.getScopeGroupId(), _searchContainerViewState.getKeywords(),
 				_searchContainerViewState.getStart(),
 				_searchContainerViewState.getEnd(),
 				_currentUser.getWorkflowStatus(), orderByComparator);
@@ -155,7 +155,7 @@ public class AssignmentRenderController extends MasterDetailRenderController {
 		_models.put(
 			"assignmentCount",
 			_assignmentService.getAssignmentsCountByKeywords(
-				scopeGroupId, _searchContainerViewState.getKeywords(),
+				themeDisplay.getScopeGroupId(), _searchContainerViewState.getKeywords(),
 				_currentUser.getWorkflowStatus()));
 
 		return "assignments.jspx";
