@@ -42,7 +42,7 @@
 			</portlet:actionURL>
 		</c:if>
 
-		<aui:form action="${formActionURL}" name="submissionForm" onSubmit="event.preventDefault();">
+		<aui:form action="${formActionURL}" name="submissionForm">
 
 			<c:if test="${!readOnly}">
 				<input name="${mvc.csrf.name}" value="${mvc.csrf.token}" type="hidden"/>
