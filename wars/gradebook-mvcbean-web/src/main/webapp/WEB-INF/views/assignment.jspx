@@ -15,11 +15,11 @@
 
 		<c:choose>
 			<c:when test="${param['viewId'] == 'add'}">
-				<c:set value="!${currentUser.mayAddAssignment}" var="readOnly" />
+				<c:set value="${!currentUser.mayAddAssignment}" var="readOnly" />
 				<h1><liferay-ui:message key="action.ADD_ASSIGNMENT" /></h1>
 			</c:when>
 			<c:when test="${param['viewId'] == 'edit'}">
-				<c:set value="!${currentUser.mayEditAssignment(assignment.assignmentId)}" var="readOnly" />
+				<c:set value="${!currentUser.mayEditAssignment(assignment.assignmentId)}" var="readOnly" />
 				<h1><liferay-ui:message key="action.EDIT_ASSIGNMENT" /></h1>
 			</c:when>
 			<c:when test="${param['viewId'] == 'view'}">
