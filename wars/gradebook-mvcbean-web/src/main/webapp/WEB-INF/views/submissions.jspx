@@ -8,12 +8,12 @@
 	xmlns:portlet="http://xmlns.jcp.org/portlet_3_0" version="2.1">
 
 	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
-	<portlet:defineObject />
+	<portlet:defineObjects />
 	<c:set value="${submissionSearchContainerViewState}" var="searchContainerViewState" />
 
 	<h1><liferay-ui:message key="action.VIEW_SUBMISSIONS" /></h1>
 
-	<h />
+	<hr />
 
 	<clay:management-toolbar displayContext="${submissionClayToolbarViewState}" itemsTotal="${submissionCount}"
 			searchContainerId="submissions" />
