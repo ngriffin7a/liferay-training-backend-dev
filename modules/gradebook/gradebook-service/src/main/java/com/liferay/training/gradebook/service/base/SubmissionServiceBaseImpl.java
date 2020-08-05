@@ -45,7 +45,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class SubmissionServiceBaseImpl
 	extends BaseServiceImpl
-	implements SubmissionService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, SubmissionService {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -101,8 +101,8 @@ public abstract class SubmissionServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

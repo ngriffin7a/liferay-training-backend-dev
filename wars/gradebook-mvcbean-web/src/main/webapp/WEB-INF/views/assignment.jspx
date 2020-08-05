@@ -83,7 +83,11 @@
 										editorName="alloyeditor" name="descriptionEditor" placeholder="description">
 									<aui:validator name="required" />
 								</liferay-ui:input-editor>
+								<!--
+								HIDDEN IS BROKEN in 7.3! MIGHT HAVE SOMETHING TO DO WITH CKEDITOR CHANGES IN 7.3
 								<aui:input name="description" type="hidden" />
+								-->
+								<aui:input name="description" type="text" />
 								<c:if test="${fields.hasErrors('description')}">
 									<span class="portlet-msg-error">${fields.error('description')}</span>
 								</c:if>

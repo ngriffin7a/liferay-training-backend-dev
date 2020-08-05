@@ -17,8 +17,6 @@ package com.liferay.training.gradebook.model.impl;
 import com.liferay.training.gradebook.model.Assignment;
 import com.liferay.training.gradebook.service.AssignmentLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the Assignment service. Represents a row in the &quot;Gradebook_Assignment&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,7 +29,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see Assignment
  * @generated
  */
-@ProviderType
 public abstract class AssignmentBaseImpl
 	extends AssignmentModelImpl implements Assignment {
 

@@ -17,8 +17,6 @@ package com.liferay.training.gradebook.model.impl;
 import com.liferay.training.gradebook.model.Submission;
 import com.liferay.training.gradebook.service.SubmissionLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the Submission service. Represents a row in the &quot;Gradebook_Submission&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,7 +29,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see Submission
  * @generated
  */
-@ProviderType
 public abstract class SubmissionBaseImpl
 	extends SubmissionModelImpl implements Submission {
 

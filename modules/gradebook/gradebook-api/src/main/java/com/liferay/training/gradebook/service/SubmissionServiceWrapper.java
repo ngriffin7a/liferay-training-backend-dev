@@ -16,8 +16,6 @@ package com.liferay.training.gradebook.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link SubmissionService}.
  *
@@ -25,9 +23,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see SubmissionService
  * @generated
  */
-@ProviderType
 public class SubmissionServiceWrapper
-	implements SubmissionService, ServiceWrapper<SubmissionService> {
+	implements ServiceWrapper<SubmissionService>, SubmissionService {
 
 	public SubmissionServiceWrapper(SubmissionService submissionService) {
 		_submissionService = submissionService;

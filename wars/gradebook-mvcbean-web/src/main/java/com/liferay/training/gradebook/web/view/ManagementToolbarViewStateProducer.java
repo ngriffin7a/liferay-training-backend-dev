@@ -19,13 +19,13 @@ package com.liferay.training.gradebook.web.view;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
+import com.liferay.frontend.taglib.clay.view.state.ManagementToolbarViewState;
+import com.liferay.frontend.taglib.clay.view.state.ManagementToolbarViewStateWrapper;
+import com.liferay.frontend.taglib.liferay.ui.view.state.SearchContainerURLFactory;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portlet.view.state.ClayToolbarViewState;
-import com.liferay.portlet.view.state.ClayToolbarViewStateFactory;
-import com.liferay.portlet.view.state.ClayToolbarViewStateWrapper;
-import com.liferay.portlet.view.state.SearchContainerURLFactory;
+import com.liferay.frontend.taglib.clay.view.state.ManagementToolbarViewStateFactory;
 import com.liferay.training.gradebook.web.el.CurrentUser;
 
 import java.util.List;
@@ -53,31 +53,31 @@ import org.osgi.service.cdi.annotations.Reference;
  * @author Neil Griffin
  */
 @ApplicationScoped
-public class ClayToolbarViewStateProducer {
+public class ManagementToolbarViewStateProducer {
 
-	@Named("assignmentClayToolbarViewState")
+	@Named("assignmentManagementToolbarViewState")
 	@PortletRequestScoped
 	@Produces
-	public ClayToolbarViewState getAssignmentClayToolbarViewState(
+	public ManagementToolbarViewState getAssignmentManagementToolbarViewState(
 		RenderRequest renderRequest, RenderResponse renderResponse,
 		CurrentUser currentUser) {
 
-		return _getClayToolbarViewState(
+		return _getManagementToolbarViewState(
 			renderRequest, renderResponse, currentUser, "assignment");
 	}
 
-	@Named("submissionClayToolbarViewState")
+	@Named("submissionManagementToolbarViewState")
 	@PortletRequestScoped
 	@Produces
-	public ClayToolbarViewState getSubmissionClayToolbarViewState(
+	public ManagementToolbarViewState getSubmissionManagementToolbarViewState(
 		RenderRequest renderRequest, RenderResponse renderResponse,
 		CurrentUser currentUser) {
 
-		return _getClayToolbarViewState(
+		return _getManagementToolbarViewState(
 			renderRequest, renderResponse, currentUser, "submission");
 	}
 
-	private ClayToolbarViewState _getClayToolbarViewState(
+	private ManagementToolbarViewState _getManagementToolbarViewState(
 		RenderRequest renderRequest, RenderResponse renderResponse,
 		CurrentUser currentUser, String renderName) {
 
@@ -86,7 +86,7 @@ public class ClayToolbarViewStateProducer {
 
 		boolean assignment = renderName.equals("assignment");
 
-		ClayToolbarViewState clayToolbarViewState =
+		ManagementToolbarViewState clayToolbarViewState =
 			_clayToolbarViewStateFactory.create(
 				LanguageUtil.get(
 					resourceBundle, "action.ADD_" + renderName.toUpperCase()),
@@ -94,13 +94,13 @@ public class ClayToolbarViewStateProducer {
 				renderRequest, renderResponse,
 				currentUser.isMayAddAssignment(), assignment, assignment, true);
 
-		return new CustomClayToolbarViewState(
+		return new CustomManagementToolbarViewState(
 			clayToolbarViewState, renderName, resourceBundle);
 	}
 
 	@Inject
 	@Reference
-	private ClayToolbarViewStateFactory _clayToolbarViewStateFactory;
+	private ManagementToolbarViewStateFactory _clayToolbarViewStateFactory;
 
 	@Inject
 	private PortletConfig _portletConfig;
@@ -112,11 +112,11 @@ public class ClayToolbarViewStateProducer {
 	@Reference
 	private SearchContainerURLFactory _searchContainerURLFactory;
 
-	private class CustomClayToolbarViewState
-		extends ClayToolbarViewStateWrapper {
+	private class CustomManagementToolbarViewState
+		extends ManagementToolbarViewStateWrapper {
 
-		public CustomClayToolbarViewState(
-			ClayToolbarViewState clayToolbarViewState, String renderName,
+		public CustomManagementToolbarViewState(
+			ManagementToolbarViewState clayToolbarViewState, String renderName,
 			ResourceBundle resourceBundle) {
 
 			super(clayToolbarViewState);
@@ -168,7 +168,7 @@ public class ClayToolbarViewStateProducer {
 					dropdownItem -> {
 						dropdownItem.setHref(getAddEntryURL());
 
-						ClayToolbarViewState clayToolbarViewState =
+						ManagementToolbarViewState clayToolbarViewState =
 							getWrapped();
 
 						dropdownItem.setLabel(

@@ -19,8 +19,8 @@ package com.liferay.training.gradebook.web.view;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
-import com.liferay.portlet.view.state.ClayToolbarViewState;
-import com.liferay.portlet.view.state.ClayToolbarViewStateWrapper;
+import com.liferay.frontend.taglib.clay.view.state.ManagementToolbarViewState;
+import com.liferay.frontend.taglib.clay.view.state.ManagementToolbarViewStateWrapper;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,11 +31,11 @@ import javax.portlet.RenderURL;
 /**
  * @author Neil Griffin
  */
-public class AssignmentClayToolbarViewState
-	extends ClayToolbarViewStateWrapper {
+public class AssignmentManagementToolbarViewState
+	extends ManagementToolbarViewStateWrapper {
 
-	public AssignmentClayToolbarViewState(
-		ClayToolbarViewState clayToolbarViewState, String orderByMessage,
+	public AssignmentManagementToolbarViewState(
+		ManagementToolbarViewState clayToolbarViewState, String orderByMessage,
 		String sizeMessage, String titleMessage) {
 
 		super(clayToolbarViewState);
@@ -62,7 +62,7 @@ public class AssignmentClayToolbarViewState
 				dropdownItem -> {
 					dropdownItem.setHref(_addEntryURL);
 
-					ClayToolbarViewState clayToolbarViewState = getWrapped();
+					ManagementToolbarViewState clayToolbarViewState = getWrapped();
 
 					dropdownItem.setLabel(
 						clayToolbarViewState.getAddEntryMessage());

@@ -22,8 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link Submission}.
@@ -33,10 +31,9 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see Submission
  * @generated
  */
-@ProviderType
 public class SubmissionWrapper
 	extends BaseModelWrapper<Submission>
-	implements Submission, ModelWrapper<Submission> {
+	implements ModelWrapper<Submission>, Submission {
 
 	public SubmissionWrapper(Submission submission) {
 		super(submission);

@@ -16,12 +16,12 @@
 
 package com.liferay.training.gradebook.web.controller;
 
+import com.liferay.frontend.taglib.liferay.ui.view.state.SearchContainerViewState;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portlet.view.state.SearchContainerViewState;
 import com.liferay.training.gradebook.model.Submission;
 import com.liferay.training.gradebook.service.SubmissionService;
 import com.liferay.training.gradebook.web.model.SubmissionDTO;

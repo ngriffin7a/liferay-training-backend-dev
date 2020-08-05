@@ -16,17 +16,16 @@
 
 package com.liferay.training.gradebook.web.controller;
 
+import com.liferay.frontend.taglib.liferay.ui.view.state.SearchContainerViewState;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portlet.view.state.SearchContainerViewState;
 import com.liferay.training.gradebook.model.Assignment;
 import com.liferay.training.gradebook.service.AssignmentService;
 import com.liferay.training.gradebook.web.el.CurrentUser;
 import com.liferay.training.gradebook.web.model.AssignmentDTO;
-import com.liferay.training.gradebook.web.view.AssignmentClayToolbarViewState;
 import com.liferay.training.gradebook.web.view.AssignmentEntry;
 
 import java.util.ArrayList;
@@ -49,7 +48,6 @@ import javax.portlet.annotations.RenderMethod;
 import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 
-import com.liferay.training.gradebook.web.view.ClayToolbarViewStateProducer;
 import org.apache.commons.beanutils.BeanUtils;
 
 import org.osgi.service.cdi.annotations.Reference;

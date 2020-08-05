@@ -16,8 +16,6 @@ package com.liferay.training.gradebook.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link AssignmentService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see AssignmentService
  * @generated
  */
-@ProviderType
 public class AssignmentServiceWrapper
 	implements AssignmentService, ServiceWrapper<AssignmentService> {
 

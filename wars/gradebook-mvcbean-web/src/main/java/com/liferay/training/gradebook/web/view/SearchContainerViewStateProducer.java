@@ -16,8 +16,6 @@
 
 package com.liferay.training.gradebook.web.view;
 
-import com.liferay.portlet.view.state.SearchContainerViewState;
-import com.liferay.portlet.view.state.SearchContainerViewStateFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -28,6 +26,8 @@ import javax.inject.Named;
 import javax.portlet.RenderRequest;
 import javax.portlet.annotations.PortletRequestScoped;
 
+import com.liferay.frontend.taglib.liferay.ui.view.state.SearchContainerViewState;
+import com.liferay.frontend.taglib.liferay.ui.view.state.SearchContainerViewStateFactory;
 import org.osgi.service.cdi.annotations.Reference;
 
 /**
